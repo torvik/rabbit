@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rabbit</title>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+      <nav class="navbar navbar-light bg-faded">
+          <%= link_to 'Rabbit', root_path, class: 'navbar-brand' %>
+          <ul class="nav navbar-nav">
+          <% if user_signed_in? %>  
+            <li class="nav-item">
+              <%= link_to 'Submit Link', new_link_path, class: 'nav-link' %> 
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Account', edit_user_registration_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+               <%= link_to 'Sign Out', destroy_user_session_path, class: 'nav-link', method: :delete %>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <%= link_to 'Sign Up', new_user_registration_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                   <%= link_to 'Sign In', new_user_session_path, class: 'nav-link' %>
+                </li>
+              <% end %>
+            </ul>
+         
+        </nav>
+
+            <div id="main_content" class="container">
+              <% flash.each do |name, msg| %>
+               <%= content_tag(:div, msg, class: "alert alert-info") %>
+            <% end %>
+          
+            <div id="content" class="col-md-9 center-block">
+                <%= yield %>
+              </div>
+          </div>
+  </body>
+</html>
